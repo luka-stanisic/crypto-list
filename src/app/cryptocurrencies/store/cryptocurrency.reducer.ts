@@ -16,7 +16,7 @@ export const initialState: CryptocurrencyState = adapter.getInitialState({
 	// additional entity state properties
 });
 
-const cryptocurrencyReducer = createReducer(
+export const cryptocurrencyReducer = createReducer(
 	initialState,
 	on(CryptocurrencyActions.loadCryptocurrencys, (state, action) =>
 		adapter.addAll(action.cryptocurrencys, state)
