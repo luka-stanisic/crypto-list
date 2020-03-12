@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
+import { ROOT_REDUCERS, metaReducers } from './store/app.store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
@@ -16,7 +16,7 @@ import { CryptocurrenciesModule } from './cryptocurrencies/cryptocurrencies.modu
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		StoreModule.forRoot(reducers, {
+		StoreModule.forRoot(ROOT_REDUCERS, {
 			metaReducers,
 			runtimeChecks: {
 				strictStateImmutability: true,
