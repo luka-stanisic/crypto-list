@@ -10,6 +10,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { CryptocurrenciesModule } from './cryptocurrencies/cryptocurrencies.module';
+import { AppSettingsModule } from './app-settings/app-settings.module';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { CryptocurrenciesModule } from './cryptocurrencies/cryptocurrencies.modu
 		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
 		EffectsModule.forRoot([AppEffects]),
 		CryptocurrenciesModule,
+		AppSettingsModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
