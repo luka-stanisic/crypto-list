@@ -11,12 +11,15 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { CryptocurrenciesModule } from './cryptocurrencies/cryptocurrencies.module';
 import { AppSettingsModule } from './app-settings/app-settings.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
 
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
+		HttpClientModule,
 		StoreModule.forRoot(ROOT_REDUCERS, {
 			metaReducers,
 			runtimeChecks: {
@@ -29,7 +32,13 @@ import { AppSettingsModule } from './app-settings/app-settings.module';
 		CryptocurrenciesModule,
 		AppSettingsModule,
 	],
-	providers: [],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: HttpConfigInterceptor,
+			multi: true,
+		},
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

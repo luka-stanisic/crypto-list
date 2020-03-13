@@ -1,1 +1,13 @@
-<p>crypto-list works!</p>
+<div class="component">
+	<button (click)="getCryptocurrList()">Refresh</button>
+
+	<div *ngIf="cryptocurrsLoading$ | async">
+		Loading..
+	</div>
+
+	<div *ngFor="let crypto of cryptocurrs$ | async">{{ crypto.symbol }} - {{ crypto.price }}</div>
+
+	<!-- <div *ngIf="(cryptocurrsError$ | async) != null" class="error">
+		{{ 'ERROR: ' + (cryptocurrsError$ | async).error.status.error_message }}
+	</div> -->
+</div>

@@ -5,8 +5,16 @@ import {
 	selectAll,
 } from './cryptocurrency.reducer';
 
-export const selectCryptocurrState = createFeatureSelector<CryptocurrencyState>(
+export const selectCryptocurrenciesState = createFeatureSelector<CryptocurrencyState>(
 	cryptocurrenciesFeatureKey
 );
 
-export const selectCryptocurrs = createSelector(selectCryptocurrState, selectAll);
+export const selectCryptocurrencies = createSelector(selectCryptocurrenciesState, selectAll);
+export const selectCryptoLoading = createSelector(
+	selectCryptocurrenciesState,
+	(state: CryptocurrencyState) => state.loading
+);
+export const selectCryptoError = createSelector(
+	selectCryptocurrenciesState,
+	(state: CryptocurrencyState) => state.error
+);
