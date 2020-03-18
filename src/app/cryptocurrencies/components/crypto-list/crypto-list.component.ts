@@ -7,7 +7,6 @@ import { CryptocurrencyState } from '../../store/cryptocurrency.reducer';
 import { loadCryptocurrencies } from '../../store/cryptocurrency.actions';
 import {
 	selectCryptocurrencies,
-	selectCryptoLoading,
 	selectCryptoError,
 } from '../../store/cryptocurrency.selectors';
 
@@ -19,8 +18,10 @@ import {
 export class CryptoListComponent implements OnInit {
 	cryptocurrs$: Observable<Cryptocurrency[]>;
 	fiatCurrency$: Observable<string>;
-	cryptocurrsLoading$: Observable<boolean>;
 	cryptocurrsError$: Observable<any>;
+
+	// TODO: Create app-settings observable instead
+	fiatCurrency = 'USD';
 
 	constructor(
 		private cryptoService: CryptocurrencyService,
@@ -30,7 +31,6 @@ export class CryptoListComponent implements OnInit {
 	ngOnInit() {
 		this.getCryptocurrList();
 
-		this.cryptocurrsLoading$ = this.cryptoStore.pipe(select(selectCryptoLoading));
 		this.cryptocurrsError$ = this.cryptoStore.pipe(select(selectCryptoError));
 	}
 

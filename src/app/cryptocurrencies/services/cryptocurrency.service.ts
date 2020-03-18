@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { Cryptocurrency } from '../models/cryptocurrency';
 import { map } from 'rxjs/operators';
 
@@ -14,10 +13,22 @@ export class CryptocurrencyService {
 
 	getCryptocurrencies(fiatCurrency: string): Observable<Cryptocurrency[]> {
 		const params = '?limit=100&aux=cmc_rank&convert=' + fiatCurrency;
-		return this.http.get<Cryptocurrency[]>(this.baseUrl + 'listings/latest' + params).pipe(
-			map((cryptoResp: any) =>
-				cryptoResp.data.map((item: any) => Cryptocurrency.adaptForList(item, fiatCurrency))
-			)
-		);
+		return this.http
+			.get<Cryptocurrency[]>(this.baseUrl + 'listings/latest' + params)
+			.pipe(
+				map((cryptoResp: any) =>
+					cryptoResp.data.map((item: any) => Cryptocurrency.adaptForList(item, fiatCurrency))
+				)
+			);
 	}
+
+	// getCryptocurrencyInfo(cryptoId: number): Observable<Cryptocurrency> {
+	// 	const cryptoDetails = this.http.get<Cryptocurrency>('https://...');
+	// 	const bitcoinPrice = this.http.get<Cryptocurrency>('https://...');
+
+	// 	return forkJoin([cryptoDetails, bitcoinPrice]).subscribe(results => {
+	// 		// results[0] is crypto details
+	// 		// results[1] is bitcoin price
+	// 	});
+	// }
 }

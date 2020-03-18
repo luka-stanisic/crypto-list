@@ -10,10 +10,6 @@ export const selectCryptocurrenciesState = createFeatureSelector<CryptocurrencyS
 );
 
 export const selectCryptocurrencies = createSelector(selectCryptocurrenciesState, selectAll);
-export const selectCryptoLoading = createSelector(
-	selectCryptocurrenciesState,
-	(state: CryptocurrencyState) => state.loading
-);
 export const selectCryptoError = createSelector(
 	selectCryptocurrenciesState,
 	(state: CryptocurrencyState) => state.error

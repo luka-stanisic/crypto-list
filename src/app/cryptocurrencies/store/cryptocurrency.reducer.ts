@@ -8,7 +8,6 @@ export const cryptocurrenciesFeatureKey = 'cryptocurrencies';
 
 export interface CryptocurrencyState extends EntityState<Cryptocurrency> {
 	// additional entities state properties
-	loading?: boolean;
 	error: any;
 }
 
@@ -24,21 +23,18 @@ export const cryptocurrencyReducer = createReducer(
 	on(CryptocurrencyActions.loadCryptocurrencies, (state, action) => {
 		return {
 			...state,
-			loading: true,
 			error: null,
 		};
 	}),
 	on(CryptocurrencyActions.loadCryptocurrenciesSuccess, (state, action) =>
 		adapter.addAll(action.cryptocurrs, {
 			...state,
-			loading: false,
 			error: null,
 		})
 	),
 	on(CryptocurrencyActions.loadCryptocurrenciesFailure, (state, action) => {
 		return {
 			...state,
-			loading: false,
 			error: action.error,
 		};
 	})

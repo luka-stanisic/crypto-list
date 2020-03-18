@@ -13,6 +13,8 @@ import { CryptocurrenciesModule } from './cryptocurrencies/cryptocurrencies.modu
 import { AppSettingsModule } from './app-settings/app-settings.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -20,6 +22,8 @@ import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
 		BrowserModule,
 		AppRoutingModule,
 		HttpClientModule,
+		LoadingBarModule,
+		LoadingBarHttpClientModule,
 		StoreModule.forRoot(ROOT_REDUCERS, {
 			metaReducers,
 			runtimeChecks: {
