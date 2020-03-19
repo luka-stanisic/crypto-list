@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Cryptocurrency } from '../models/cryptocurrency';
+import { Cryptocurrency } from '../../models/cryptocurrency';
 
 export const loadCryptocurrencies = createAction(
 	'[Cryptocurrency List] Load Cryptocurrencies',
@@ -12,4 +12,8 @@ export const loadCryptocurrenciesSuccess = createAction(
 export const loadCryptocurrenciesFailure = createAction(
 	'[Cryptocurrency List Effect] Load Cryptocurrencies Failure',
 	props<{ error: any }>()
+);
+export const changeFiatCurrency = createAction(
+	'[Header Component] Change Fiat Currency',
+	props<{ fiatCurrency: string }>()
 );

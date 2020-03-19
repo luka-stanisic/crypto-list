@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Cryptocurrency } from '../../models/cryptocurrency';
-import { CryptocurrencyService } from '../../services/cryptocurrency.service';
-import { Store, select } from '@ngrx/store';
-import { CryptocurrencyState } from '../../store/cryptocurrency.reducer';
-import { loadCryptocurrencies } from '../../store/cryptocurrency.actions';
+import { Cryptocurrency } from 'src/app/models/cryptocurrency';
 import {
-	selectCryptocurrencies,
-	selectCryptoError,
-} from '../../store/cryptocurrency.selectors';
+	RootStoreState,
+	CryptoStoreActions,
+	CryptoStoreSelectors,
+} from '../../../root-store';
+import { Store } from '@ngrx/store';
 
 @Component({
 	selector: 'app-crypto-list',
@@ -16,26 +14,26 @@ import {
 	styleUrls: ['./crypto-list.component.scss'],
 })
 export class CryptoListComponent implements OnInit {
-	cryptocurrs$: Observable<Cryptocurrency[]>;
+	cryptocurrencies$: Observable<Cryptocurrency[]>;
+	error$: Observable<any>;
 	fiatCurrency$: Observable<string>;
-	cryptocurrsError$: Observable<any>;
 
-	// TODO: Create app-settings observable instead
-	fiatCurrency = 'USD';
-
-	constructor(
-		private cryptoService: CryptocurrencyService,
-		private cryptoStore: Store<CryptocurrencyState>
-	) {}
+	constructor(private store$: Store<RootStoreState.State>) {}
 
 	ngOnInit() {
-		this.getCryptocurrList();
+		this.cryptocurrencies$ = this.store$.select(CryptoStoreSelectors.selectCryptocurrencies);
+		this.error$ = this.store$.select(CryptoStoreSelectors.selectCryptoError);
+		this.fiatCurrency$ = this.store$.select(CryptoStoreSelectors.selectFiatCurrency);
 
-		this.cryptocurrsError$ = this.cryptoStore.pipe(select(selectCryptoError));
+		this.getCryptocurrencies();
 	}
 
-	getCryptocurrList() {
-		this.cryptoStore.dispatch(loadCryptocurrencies({ fiatCurrency: 'USD' }));
-		this.cryptocurrs$ = this.cryptoStore.pipe(select(selectCryptocurrencies));
+	getCryptocurrencies() {
+		this.store$.dispatch(CryptoStoreActions.loadCryptocurrencies({ fiatCurrency: 'USD' }));
+
+		// this.cryptoFacade.loadCryptocurrencies(this.fiatCurrency);
+		// this.courses = this.store.select(getUser())
+		// .do(user => this.store.dispatch(new LoadCoursesForUserAction({ user: user })))
+		// .switchMap(() => this.store.select(getCourses));
 	}
 }

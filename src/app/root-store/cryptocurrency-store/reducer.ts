@@ -1,25 +1,18 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-
-import { Cryptocurrency } from '../models/cryptocurrency';
-import * as CryptocurrencyActions from './cryptocurrency.actions';
+import * as CryptocurrencyActions from './actions';
+import { adapter, initialState, State } from './state';
 
 export const cryptocurrenciesFeatureKey = 'cryptocurrencies';
 
-export interface CryptocurrencyState extends EntityState<Cryptocurrency> {
-	// additional entities state properties
-	error: any;
-}
-
-export const adapter: EntityAdapter<Cryptocurrency> = createEntityAdapter<Cryptocurrency>();
-
-export const initialState: CryptocurrencyState = adapter.getInitialState({
-	// additional entity state properties
-	error: null,
-});
-
 export const cryptocurrencyReducer = createReducer(
 	initialState,
+	on(CryptocurrencyActions.changeFiatCurrency, (state, action) => {
+		return {
+			...state,
+			fiatCurrency: action.fiatCurrency,
+			error: null,
+		};
+	}),
 	on(CryptocurrencyActions.loadCryptocurrencies, (state, action) => {
 		return {
 			...state,
@@ -40,7 +33,7 @@ export const cryptocurrencyReducer = createReducer(
 	})
 );
 
-export function reducer(state: CryptocurrencyState | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action) {
 	return cryptocurrencyReducer(state, action);
 }
 
