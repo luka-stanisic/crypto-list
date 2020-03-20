@@ -35,7 +35,7 @@ export class CryptocurrencyEffects {
 			withLatestFrom(this.store$.select(SettingsStoreSelectors.selectFiatCurrency)),
 			mergeMap(([action, fiatCurrency]) =>
 				this.cryptocurrencyService.getCryptoDetails(action.id, fiatCurrency).pipe(
-					map(selectedCrypto => fromCryptocurrActions.loadCryptoDetailsSuccess({ selectedCrypto })),
+					map(crypto => fromCryptocurrActions.loadCryptoDetailsSuccess({ crypto })),
 					catchError(error => of(fromCryptocurrActions.loadCryptoDetailsFailure({ error })))
 				)
 			)

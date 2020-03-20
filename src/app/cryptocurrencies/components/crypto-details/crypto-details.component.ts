@@ -27,7 +27,7 @@ export class CryptoDetailsComponent implements OnInit {
 	ngOnInit() {
 		this.cryptoId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
 
-		this.cryptocurrency$ = this.store$.select(CryptoStoreSelectors.selectedCryptocurrency);
+		this.cryptocurrency$ = this.store$.select(CryptoStoreSelectors.selectCryptocurrency);
 		this.fiatCurrency$ = this.store$.select(SettingsStoreSelectors.selectFiatCurrency);
 		this.error$ = this.store$.select(CryptoStoreSelectors.selectCryptoError);
 

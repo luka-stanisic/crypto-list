@@ -3,7 +3,7 @@ import { Cryptocurrency } from '../../models/cryptocurrency';
 
 export interface CryptoState extends EntityState<Cryptocurrency> {
 	// additional entities state properties
-	selectedCrypto: Cryptocurrency;
+	selectedCryptoId: number;
 	error: any;
 }
 
@@ -11,6 +11,6 @@ export const adapter: EntityAdapter<Cryptocurrency> = createEntityAdapter<Crypto
 
 export const initialState: CryptoState = adapter.getInitialState({
 	// additional entity state properties
-	selectedCrypto: undefined,
+	selectedCryptoId: null,
 	error: null,
 });

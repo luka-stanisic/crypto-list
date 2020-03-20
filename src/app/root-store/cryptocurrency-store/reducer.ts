@@ -25,12 +25,16 @@ export const cryptocurrencyReducer = createReducer(
 			error: action.error,
 		};
 	}),
-	on(CryptocurrencyActions.loadCryptoDetailsSuccess, (state, action) => {
+	on(CryptocurrencyActions.loadCryptoDetails, (state, action) => {
 		return {
 			...state,
-			selectedCrypto: action.selectedCrypto,
+			selectedCryptoId: action.id,
+			error: null,
 		};
 	}),
+	on(CryptocurrencyActions.loadCryptoDetailsSuccess, (state, action) =>
+		adapter.updateOne({ id: action.crypto.id, changes: action.crypto }, state)
+	),
 	on(CryptocurrencyActions.loadCryptoDetailsFailure, (state, action) => {
 		return {
 			...state,

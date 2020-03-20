@@ -7,9 +7,10 @@ export const selectCryptocurrenciesState = createFeatureSelector<CryptoState>(
 );
 
 export const selectCryptocurrencies = createSelector(selectCryptocurrenciesState, selectAll);
-export const selectedCryptocurrency = createSelector(
+
+export const selectCryptocurrency = createSelector(
 	selectCryptocurrenciesState,
-	(state: CryptoState) => state.selectedCrypto
+	(state: CryptoState) => state.entities[state.selectedCryptoId]
 );
 
 export const selectCryptoError = createSelector(
