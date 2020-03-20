@@ -1,4 +1,21 @@
-.back-link:hover{
-  text-decoration: none;
-  color: unset;
+.btn.btn-default {
+	background-color: #f4f4f4;
+
+	&:hover {
+		background-color: #dee2e6;
+	}
+}
+.back-link {
+	&:hover {
+		text-decoration: none;
+		color: unset;
+	}
+	span {
+		font-size: 20px;
+	}
+}
+.rank-badge {
+	font-size: 17px;
+	margin-top: 5px;
+	margin-right: 10px;
 }

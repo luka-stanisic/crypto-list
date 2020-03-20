@@ -33,7 +33,7 @@ export const cryptocurrencyReducer = createReducer(
 		};
 	}),
 	on(CryptocurrencyActions.loadCryptoDetailsSuccess, (state, action) =>
-		adapter.updateOne({ id: action.crypto.id, changes: action.crypto }, state)
+		adapter.upsertOne(action.crypto, state)
 	),
 	on(CryptocurrencyActions.loadCryptoDetailsFailure, (state, action) => {
 		return {

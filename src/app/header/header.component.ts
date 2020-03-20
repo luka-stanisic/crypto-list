@@ -8,6 +8,7 @@ import {
 	SettingsStoreSelectors,
 	SettingsStoreActions,
 } from '../root-store';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-header',
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit {
 	fiatCurrency$: Observable<string>;
 	availableCurrencies = environment.availableCurrencies;
 
-	constructor(private store$: Store<RootStoreState.State>) {}
+	constructor(private store$: Store<RootStoreState.State>, private router: Router) {}
 
 	ngOnInit() {
 		this.fiatCurrency$ = this.store$.select(SettingsStoreSelectors.selectFiatCurrency);
@@ -26,6 +27,11 @@ export class HeaderComponent implements OnInit {
 
 	changeCurr(curr: string) {
 		this.store$.dispatch(SettingsStoreActions.changeFiatCurrency({ fiatCurrency: curr }));
+
+		// if (this.router.url === '/details') {
+		// 	this.store$.dispatch(CryptoStoreActions.loadCryptoDetails());
+		// } else {
 		this.store$.dispatch(CryptoStoreActions.loadCryptocurrencies());
+		// }
 	}
 }
