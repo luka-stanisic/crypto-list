@@ -6,6 +6,7 @@ export const cryptocurrenciesFeatureKey = 'cryptocurrencies';
 
 export const cryptocurrencyReducer = createReducer(
 	initialState,
+	// TODO: skloni skroz ovaj loadCryptocurrencies !!!!!!!!!!!
 	on(CryptocurrencyActions.loadCryptocurrencies, (state, action) => {
 		return {
 			...state,
@@ -19,6 +20,18 @@ export const cryptocurrencyReducer = createReducer(
 		})
 	),
 	on(CryptocurrencyActions.loadCryptocurrenciesFailure, (state, action) => {
+		return {
+			...state,
+			error: action.error,
+		};
+	}),
+	on(CryptocurrencyActions.loadCryptoDetailsSuccess, (state, action) => {
+		return {
+			...state,
+			selectedCrypto: action.selectedCrypto,
+		};
+	}),
+	on(CryptocurrencyActions.loadCryptoDetailsFailure, (state, action) => {
 		return {
 			...state,
 			error: action.error,

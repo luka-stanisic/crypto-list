@@ -12,9 +12,10 @@ export class CryptocurrencyService {
 	baseUrl = 'api/v1/cryptocurrency/';
 
 	getCryptocurrencies(fiatCurrency: string): Observable<Cryptocurrency[]> {
-		const params = '?limit=100&aux=cmc_rank&convert=' + fiatCurrency;
 		return this.http
-			.get<Cryptocurrency[]>(this.baseUrl + 'listings/latest' + params)
+			.get<Cryptocurrency[]>(
+				this.baseUrl + 'listings/latest?limit=100&aux=cmc_rank&convert=' + fiatCurrency
+			)
 			.pipe(
 				map((cryptoResp: any) =>
 					cryptoResp.data.map((item: any) => Cryptocurrency.adaptForList(item, fiatCurrency))
@@ -22,13 +23,11 @@ export class CryptocurrencyService {
 			);
 	}
 
-	// getCryptocurrencyInfo(cryptoId: number): Observable<Cryptocurrency> {
-	// 	const cryptoDetails = this.http.get<Cryptocurrency>('https://...');
-	// 	const bitcoinPrice = this.http.get<Cryptocurrency>('https://...');
-
-	// 	return forkJoin([cryptoDetails, bitcoinPrice]).subscribe(results => {
-	// 		// results[0] is crypto details
-	// 		// results[1] is bitcoin price
-	// 	});
-	// }
+	getCryptoDetails(id: number, fiatCurrency: string): Observable<Cryptocurrency> {
+		return this.http
+			.get<Cryptocurrency>(this.baseUrl + 'quotes/latest?id=' + id + '&convert=' + fiatCurrency)
+			.pipe(
+				map((cryptoResp: any) => Cryptocurrency.adaptForDetails(cryptoResp.data[id], fiatCurrency))
+			);
+	}
 }

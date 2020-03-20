@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+
 import { Cryptocurrency } from 'src/app/models/cryptocurrency';
 import {
 	RootStoreState,
@@ -7,7 +10,6 @@ import {
 	CryptoStoreSelectors,
 	SettingsStoreSelectors,
 } from '../../../root-store';
-import { Store } from '@ngrx/store';
 
 @Component({
 	selector: 'app-crypto-list',
@@ -19,7 +21,7 @@ export class CryptoListComponent implements OnInit {
 	error$: Observable<any>;
 	fiatCurrency$: Observable<string>;
 
-	constructor(private store$: Store<RootStoreState.State>) {}
+	constructor(private store$: Store<RootStoreState.State>, private router: Router) {}
 
 	ngOnInit() {
 		this.cryptocurrencies$ = this.store$.select(CryptoStoreSelectors.selectCryptocurrencies);
@@ -31,5 +33,9 @@ export class CryptoListComponent implements OnInit {
 
 	getCryptocurrencies() {
 		this.store$.dispatch(CryptoStoreActions.loadCryptocurrencies());
+	}
+
+	viewCryptoDetails(crypto: Cryptocurrency) {
+		this.router.navigate(['/details', crypto.id]);
 	}
 }

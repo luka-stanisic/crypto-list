@@ -1,1 +1,10 @@
-<p>crypto-details works!</p>
+<!-- Error alert -->
+<div class="alert alert-danger" *ngIf="error$ | async as error" role="alert">
+	{{ 'ERROR: ' + error.error.status.error_message }}
+</div>
+
+<!-- Main content -->
+<div *ngIf="cryptocurrency$ | async as crypto" class="container mt-4">
+	<a [routerLink]="['/']" class="back-link text-muted"><- Back</a>
+	<h3>{{ crypto.name }}</h3>
+</div>

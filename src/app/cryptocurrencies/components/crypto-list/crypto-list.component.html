@@ -1,6 +1,6 @@
 <!-- Error alert -->
-<div class="alert alert-danger" *ngIf="cryptocurrsError$ | async" role="alert">
-	{{ 'ERROR: ' + (cryptocurrsError$ | async).error.status.error_message }}
+<div class="alert alert-danger" *ngIf="error$ | async as error" role="alert">
+	{{ 'ERROR: ' + error.error.status.error_message }}
 </div>
 
 <!-- Main content -->
@@ -21,7 +21,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let crypto of cryptocurrencies$ | async">
+			<tr *ngFor="let crypto of cryptocurrencies$ | async" (click)="viewCryptoDetails(crypto)">
 				<td>{{ crypto.rank }}</td>
 				<td>{{ crypto.symbol }}</td>
 				<td class="text-right">

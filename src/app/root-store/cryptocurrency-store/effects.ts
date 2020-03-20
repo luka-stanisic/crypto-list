@@ -28,4 +28,17 @@ export class CryptocurrencyEffects {
 			)
 		)
 	);
+
+	loadCryptoDetails$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(fromCryptocurrActions.loadCryptoDetails),
+			withLatestFrom(this.store$.select(SettingsStoreSelectors.selectFiatCurrency)),
+			mergeMap(([action, fiatCurrency]) =>
+				this.cryptocurrencyService.getCryptoDetails(action.id, fiatCurrency).pipe(
+					map(selectedCrypto => fromCryptocurrActions.loadCryptoDetailsSuccess({ selectedCrypto })),
+					catchError(error => of(fromCryptocurrActions.loadCryptoDetailsFailure({ error })))
+				)
+			)
+		)
+	);
 }
