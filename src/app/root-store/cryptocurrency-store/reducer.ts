@@ -1,18 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as CryptocurrencyActions from './actions';
-import { adapter, initialState, State } from './state';
+import { adapter, initialState, CryptoState } from './state';
 
 export const cryptocurrenciesFeatureKey = 'cryptocurrencies';
 
 export const cryptocurrencyReducer = createReducer(
 	initialState,
-	on(CryptocurrencyActions.changeFiatCurrency, (state, action) => {
-		return {
-			...state,
-			fiatCurrency: action.fiatCurrency,
-			error: null,
-		};
-	}),
 	on(CryptocurrencyActions.loadCryptocurrencies, (state, action) => {
 		return {
 			...state,
@@ -33,7 +26,7 @@ export const cryptocurrencyReducer = createReducer(
 	})
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: CryptoState | undefined, action: Action) {
 	return cryptocurrencyReducer(state, action);
 }
 

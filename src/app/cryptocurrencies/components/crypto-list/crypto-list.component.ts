@@ -5,6 +5,7 @@ import {
 	RootStoreState,
 	CryptoStoreActions,
 	CryptoStoreSelectors,
+	SettingsStoreSelectors,
 } from '../../../root-store';
 import { Store } from '@ngrx/store';
 
@@ -23,17 +24,12 @@ export class CryptoListComponent implements OnInit {
 	ngOnInit() {
 		this.cryptocurrencies$ = this.store$.select(CryptoStoreSelectors.selectCryptocurrencies);
 		this.error$ = this.store$.select(CryptoStoreSelectors.selectCryptoError);
-		this.fiatCurrency$ = this.store$.select(CryptoStoreSelectors.selectFiatCurrency);
+		this.fiatCurrency$ = this.store$.select(SettingsStoreSelectors.selectFiatCurrency);
 
 		this.getCryptocurrencies();
 	}
 
 	getCryptocurrencies() {
-		this.store$.dispatch(CryptoStoreActions.loadCryptocurrencies({ fiatCurrency: 'USD' }));
-
-		// this.cryptoFacade.loadCryptocurrencies(this.fiatCurrency);
-		// this.courses = this.store.select(getUser())
-		// .do(user => this.store.dispatch(new LoadCoursesForUserAction({ user: user })))
-		// .switchMap(() => this.store.select(getCourses));
+		this.store$.dispatch(CryptoStoreActions.loadCryptocurrencies());
 	}
 }

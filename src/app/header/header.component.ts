@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import { RootStoreState, CryptoStoreActions, CryptoStoreSelectors } from '../root-store';
+import {
+	RootStoreState,
+	CryptoStoreActions,
+	SettingsStoreSelectors,
+	SettingsStoreActions,
+} from '../root-store';
 
 @Component({
 	selector: 'app-header',
@@ -16,11 +21,11 @@ export class HeaderComponent implements OnInit {
 	constructor(private store$: Store<RootStoreState.State>) {}
 
 	ngOnInit() {
-		this.fiatCurrency$ = this.store$.select(CryptoStoreSelectors.selectFiatCurrency);
+		this.fiatCurrency$ = this.store$.select(SettingsStoreSelectors.selectFiatCurrency);
 	}
 
 	changeCurr(curr: string) {
-		this.store$.dispatch(CryptoStoreActions.changeFiatCurrency({ fiatCurrency: curr }));
-		this.store$.dispatch(CryptoStoreActions.loadCryptocurrencies({ fiatCurrency: curr }));
+		this.store$.dispatch(SettingsStoreActions.changeFiatCurrency({ fiatCurrency: curr }));
+		this.store$.dispatch(CryptoStoreActions.loadCryptocurrencies());
 	}
 }
