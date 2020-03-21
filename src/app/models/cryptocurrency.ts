@@ -26,7 +26,7 @@ export class Cryptocurrency {
 		return crypto;
 	}
 
-	static adaptForDetails(item: any, fiatCurrency: string): Cryptocurrency {
+	static adaptForDetails(item: any, fiatCurrency: string, bitcoinPrice: number): Cryptocurrency {
 		const crypto = new Cryptocurrency();
 		crypto.id = item.id;
 		crypto.rank = item.cmc_rank;
@@ -34,6 +34,8 @@ export class Cryptocurrency {
 		crypto.symbol = item.symbol;
 		crypto.totalSupply = item.total_supply;
 		crypto.availableSupply = item.circulating_supply;
+
+		crypto.priceBTC = bitcoinPrice;
 
 		crypto.price = item.quote[fiatCurrency].price;
 		crypto.volume24h = item.quote[fiatCurrency].volume_24h;

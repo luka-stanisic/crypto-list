@@ -1,6 +1,6 @@
 <!-- Error alert -->
 <div class="alert alert-danger" *ngIf="error$ | async as error" role="alert">
-	{{ 'ERROR: ' + error.error.status.error_message }}
+	{{ 'Error: ' + error.statusText }}
 </div>
 
 <!-- Main content -->
@@ -8,7 +8,7 @@
 	<h3 class="text-center mt-5">Top 100 Cryptocurrencies</h3>
 
 	<div class="text-right mb-2">
-		<button (click)="getCryptoDetails()" class="btn btn-default">Refresh</button>
+		<button (click)="getCryptocurrencies()" class="btn btn-default">Refresh</button>
 	</div>
 
 	<table class="table table-hover">
@@ -25,7 +25,10 @@
 				<td>{{ crypto.rank }}</td>
 				<td>{{ crypto.symbol }}</td>
 				<td class="text-right">
-					{{ crypto.price | currency: (fiatCurrency$ | async):'symbol':'1.2-2' }}
+					{{
+						crypto.price
+							| currency: (fiatCurrency$ | async):'symbol':(crypto.price > 1 ? '1.2-2' : '1.6-6')
+					}}
 				</td>
 				<td class="text-right">{{ crypto.change24h | percent: '1.2-2' }}</td>
 			</tr>

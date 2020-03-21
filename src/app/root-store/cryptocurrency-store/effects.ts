@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as fromCryptocurrActions from './actions';
-import { CryptocurrencyService } from '../../services/cryptocurrency.service';
+import { Store } from '@ngrx/store';
 import { mergeMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { Store } from '@ngrx/store';
+
+import * as fromCryptocurrActions from './actions';
+import { CryptocurrencyService } from '../../services/cryptocurrency.service';
 import { SettingsStoreSelectors } from '../settings-store';
+import { selectSelectedCryptoId } from '../cryptocurrency-store/selectors';
 import { CryptoState } from './state';
 
 @Injectable()
@@ -31,10 +33,11 @@ export class CryptocurrencyEffects {
 
 	loadCryptoDetails$ = createEffect(() =>
 		this.actions$.pipe(
-			ofType(fromCryptocurrActions.loadCryptoDetails),
+			ofType(fromCryptocurrActions.loadCryptoDetails, fromCryptocurrActions.reloadCryptoDetails),
 			withLatestFrom(this.store$.select(SettingsStoreSelectors.selectFiatCurrency)),
-			mergeMap(([action, fiatCurrency]) =>
-				this.cryptocurrencyService.getCryptoDetails(action.id, fiatCurrency).pipe(
+			withLatestFrom(this.store$.select(selectSelectedCryptoId)),
+			mergeMap(([[action, fiatCurrency], cryptoId]) =>
+				this.cryptocurrencyService.getCryptoDetails(cryptoId, fiatCurrency).pipe(
 					map(crypto => fromCryptocurrActions.loadCryptoDetailsSuccess({ crypto })),
 					catchError(error => of(fromCryptocurrActions.loadCryptoDetailsFailure({ error })))
 				)

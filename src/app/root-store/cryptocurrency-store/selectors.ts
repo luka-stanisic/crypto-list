@@ -13,6 +13,11 @@ export const selectCryptocurrency = createSelector(
 	(state: CryptoState) => state.entities[state.selectedCryptoId]
 );
 
+export const selectSelectedCryptoId = createSelector(
+	selectCryptocurrenciesState,
+	(state: CryptoState) => state.selectedCryptoId
+);
+
 export const selectCryptoError = createSelector(
 	selectCryptocurrenciesState,
 	(state: CryptoState) => state.error

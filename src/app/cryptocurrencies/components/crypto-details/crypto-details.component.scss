@@ -5,6 +5,12 @@
 		background-color: #dee2e6;
 	}
 }
+.alert {
+	text-align: center;
+	border: none;
+	border-radius: 0;
+	color: #ff1744;
+}
 .back-link {
 	&:hover {
 		text-decoration: none;

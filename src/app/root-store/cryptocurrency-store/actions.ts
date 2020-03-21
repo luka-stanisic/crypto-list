@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { Cryptocurrency } from '../../models/cryptocurrency';
-import { Update } from '@ngrx/entity';
 
 // Load Cryptocurrency List
 export const loadCryptocurrencies = createAction(
@@ -28,3 +27,11 @@ export const loadCryptoDetailsFailure = createAction(
 	'[Cryptocurrency Effect] Load Crypto Details Failure',
 	props<{ error: any }>()
 );
+
+// Reload Cryptocurrency List
+export const reloadCryptocurrencies = createAction(
+	'[Header Settings] Reload Cryptocurrencies Request'
+);
+
+// Reload Cryptocurrency Details
+export const reloadCryptoDetails = createAction('[Header Settings] Reload Crypto Details Request');
