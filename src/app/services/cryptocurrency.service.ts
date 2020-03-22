@@ -24,13 +24,13 @@ export class CryptocurrencyService {
 	}
 
 	getCryptoDetails(id: number, fiatCurrency: string): Observable<Cryptocurrency> {
-		const cryptoDetails = this.http.get<Cryptocurrency>(
+		const detailsFiatCurr = this.http.get<Cryptocurrency>(
 			this.baseUrl + 'quotes/latest?id=' + id + '&convert=' + fiatCurrency
 		);
-		const bitcoinDetails = this.http.get<Cryptocurrency>(
+		const detailsBitcoin = this.http.get<Cryptocurrency>(
 			this.baseUrl + 'quotes/latest?id=' + id + '&convert=BTC'
 		);
-		return forkJoin([cryptoDetails, bitcoinDetails]).pipe(
+		return forkJoin([detailsFiatCurr, detailsBitcoin]).pipe(
 			map((response: any) => {
 				const details = response[0].data[id];
 				const bitcoinPrice = response[1].data[id].quote.BTC.price;

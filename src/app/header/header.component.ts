@@ -19,11 +19,7 @@ export class HeaderComponent implements OnInit {
 	fiatCurrency$: Observable<string>;
 	availableCurrencies = environment.availableCurrencies;
 
-	constructor(
-		private store$: Store<RootStoreState.State>,
-		private router: Router,
-		private route: ActivatedRoute
-	) {}
+	constructor(private store$: Store<RootStoreState.State>, private router: Router) {}
 
 	ngOnInit() {
 		this.fiatCurrency$ = this.store$.select(SettingsStoreSelectors.selectFiatCurrency);

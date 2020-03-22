@@ -2,36 +2,32 @@ import { createAction, props } from '@ngrx/store';
 import { Cryptocurrency } from '../../models/cryptocurrency';
 
 // Load Cryptocurrency List
-export const loadCryptocurrencies = createAction(
-	'[Cryptocurrency List] Load Cryptocurrencies Request'
-);
+export const loadCryptocurrencies = createAction('[Crypto List] Load Crypto List Request');
 export const loadCryptocurrenciesSuccess = createAction(
-	'[Cryptocurrency Effect] Load Cryptocurrencies Success',
+	'[Crypto API] Load Crypto List Success',
 	props<{ cryptocurrs: Cryptocurrency[] }>()
 );
 export const loadCryptocurrenciesFailure = createAction(
-	'[Cryptocurrency Effect] Load Cryptocurrencies Failure',
+	'[Crypto API] Load Crypto List Failure',
 	props<{ error: any }>()
 );
 
 // Load Cryptocurrency Details
 export const loadCryptoDetails = createAction(
-	'[Cryptocurrency Details] Load Crypto Details Request',
+	'[Crypto Details] Load Crypto Details Request',
 	props<{ id: number }>()
 );
 export const loadCryptoDetailsSuccess = createAction(
-	'[Cryptocurrency Effect] Load Crypto Details Success',
+	'[Crypto API] Load Crypto Details Success',
 	props<{ crypto: Cryptocurrency }>()
 );
 export const loadCryptoDetailsFailure = createAction(
-	'[Cryptocurrency Effect] Load Crypto Details Failure',
+	'[Crypto API] Load Crypto Details Failure',
 	props<{ error: any }>()
 );
 
 // Reload Cryptocurrency List
-export const reloadCryptocurrencies = createAction(
-	'[Header Settings] Reload Cryptocurrencies Request'
-);
+export const reloadCryptocurrencies = createAction('[Header Settings] Reload Crypto List Request');
 
 // Reload Cryptocurrency Details
 export const reloadCryptoDetails = createAction('[Header Settings] Reload Crypto Details Request');
