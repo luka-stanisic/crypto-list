@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
 		if (this.router.url.startsWith('/details/')) {
 			this.store$.dispatch(CryptoStoreActions.reloadCryptoDetails());
 		} else {
-			this.store$.dispatch(CryptoStoreActions.loadCryptocurrencies());
+			this.store$.dispatch(CryptoStoreActions.reloadCryptocurrencies());
 		}
 	}
 }

@@ -20,7 +20,10 @@ export class CryptocurrencyEffects {
 
 	loadCryptocurrs$ = createEffect(() =>
 		this.actions$.pipe(
-			ofType(fromCryptocurrActions.loadCryptocurrencies),
+			ofType(
+				fromCryptocurrActions.loadCryptocurrencies,
+				fromCryptocurrActions.reloadCryptocurrencies
+			),
 			withLatestFrom(this.store$.select(selectFiatCurrency)),
 			mergeMap(([action, fiatCurrency]) =>
 				this.cryptocurrencyService.getCryptocurrencies(fiatCurrency).pipe(

@@ -6,6 +6,7 @@ import { CryptoDetailsComponent } from './cryptocurrencies/components/crypto-det
 const routes: Routes = [
 	{ path: '', component: CryptoListComponent },
 	{ path: 'details/:id', component: CryptoDetailsComponent },
+	{ path: '**', component: CryptoListComponent },
 ];
 
 @NgModule({
