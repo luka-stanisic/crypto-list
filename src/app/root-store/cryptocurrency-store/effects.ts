@@ -6,8 +6,8 @@ import { of } from 'rxjs';
 
 import * as fromCryptocurrActions from './actions';
 import { CryptocurrencyService } from '../../services/cryptocurrency.service';
-import { SettingsStoreSelectors } from '../settings-store';
-import { selectSelectedCryptoId } from '../cryptocurrency-store/selectors';
+import { selectFiatCurrency } from '../settings-store/selectors';
+import { selectSelectedCryptoId } from './selectors';
 import { CryptoState } from './state';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class CryptocurrencyEffects {
 	loadCryptocurrs$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(fromCryptocurrActions.loadCryptocurrencies),
-			withLatestFrom(this.store$.select(SettingsStoreSelectors.selectFiatCurrency)),
+			withLatestFrom(this.store$.select(selectFiatCurrency)),
 			mergeMap(([action, fiatCurrency]) =>
 				this.cryptocurrencyService.getCryptocurrencies(fiatCurrency).pipe(
 					map(cryptocurrs => fromCryptocurrActions.loadCryptocurrenciesSuccess({ cryptocurrs })),
@@ -34,7 +34,7 @@ export class CryptocurrencyEffects {
 	loadCryptoDetails$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(fromCryptocurrActions.loadCryptoDetails, fromCryptocurrActions.reloadCryptoDetails),
-			withLatestFrom(this.store$.select(SettingsStoreSelectors.selectFiatCurrency)),
+			withLatestFrom(this.store$.select(selectFiatCurrency)),
 			withLatestFrom(this.store$.select(selectSelectedCryptoId)),
 			mergeMap(([[action, fiatCurrency], cryptoId]) =>
 				this.cryptocurrencyService.getCryptoDetails(cryptoId, fiatCurrency).pipe(
