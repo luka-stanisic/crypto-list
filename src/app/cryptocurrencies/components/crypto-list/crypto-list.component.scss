@@ -1,0 +1,20 @@
+.btn.btn-default {
+	background-color: #f4f4f4;
+
+	&:hover {
+		background-color: #dee2e6;
+	}
+}
+.alert {
+	text-align: center;
+	border: none;
+	border-radius: 0;
+	color: #ff1744;
+}
+.table {
+	tbody {
+		tr {
+			cursor: pointer;
+		}
+	}
+}

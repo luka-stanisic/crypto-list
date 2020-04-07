@@ -1,0 +1,72 @@
+<!-- Error alert -->
+<div class="alert alert-danger" *ngIf="error$ | async as error" role="alert">
+	{{ 'Error: ' + error.statusText }}
+</div>
+
+<!-- Main content -->
+<div *ngIf="cryptocurrency$ | async as crypto" class="container mt-4">
+	<div class="row">
+		<div class="col-12 mb-2">
+			<a [routerLink]="['/']" class="back-link text-muted float-left"><span>&#8249;</span> Back</a>
+			<div class="float-right">
+				<button (click)="getCryptoDetails()" class="btn btn-default">Refresh</button>
+			</div>
+		</div>
+
+		<div class="col-12">
+			<span class="badge badge-secondary rank-badge float-left" title="Rank">
+				{{ crypto.rank }}
+			</span>
+			<div class="float-left">
+				<h3 class="mb-0">{{ crypto.name }}</h3>
+				<h6 class="text-muted">{{ crypto.symbol }}</h6>
+			</div>
+		</div>
+
+		<h3 class="col-12 mb-0 mt-4">
+			{{
+				crypto.price
+					| currency: (fiatCurrency$ | async):'symbol':(crypto.price > 1 ? '1.2-2' : '1.6-6')
+			}}
+		</h3>
+
+		<h6 class="col-12 text-muted">
+			{{ crypto.priceBTC | number: (crypto.price > 1 ? '1.4-4' : '1.6-6') }} BTC
+		</h6>
+
+		<div class="col-12 mt-4">
+			<div class="row">
+				<div class="col-6 col-md-3 mb-4">
+					<div class="text-muted">Volume (24h)</div>
+					<div>{{ crypto.volume24h | currency: (fiatCurrency$ | async):'symbol':'1.2-2' }}</div>
+				</div>
+				<div class="col-6 col-md-3 mb-4">
+					<div class="text-muted">Market Cap</div>
+					<div>{{ crypto.marketCap | currency: (fiatCurrency$ | async):'symbol':'1.2-2' }}</div>
+				</div>
+				<div class="col-6 col-md-3 mb-4">
+					<div class="text-muted">Total Supply</div>
+					<div>{{ crypto.totalSupply | number: '1.2-2' }}</div>
+				</div>
+				<div class="col-6 col-md-3 mb-4">
+					<div class="text-muted">Available Supply</div>
+					<div>{{ crypto.availableSupply | number: '1.2-2' }}</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 col-md-3 mb-4">
+					<div class="text-muted">1h Change</div>
+					<div>{{ crypto.change1h | currency: (fiatCurrency$ | async):'symbol':'1.2-2' }}</div>
+				</div>
+				<div class="col-6 col-md-3 mb-4">
+					<div class="text-muted">24h Change</div>
+					<div>{{ crypto.change24h | currency: (fiatCurrency$ | async):'symbol':'1.2-2' }}</div>
+				</div>
+				<div class="col-6 col-md-3 mb-4">
+					<div class="text-muted">7d Change</div>
+					<div>{{ crypto.change7d | currency: (fiatCurrency$ | async):'symbol':'1.2-2' }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

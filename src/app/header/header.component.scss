@@ -1,0 +1,13 @@
+.navbar-nav {
+	.dropdown {
+		cursor: pointer;
+
+		.dropdown-menu {
+			position: absolute;
+
+			.dropdown-item.active:hover {
+				color: #fff;
+			}
+		}
+	}
+}
